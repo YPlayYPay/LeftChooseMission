@@ -9,22 +9,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
   </head>
   <body>
-    <div id="wrap" class="container col-md-3"></div>
+    <div id="wrap" class="col-sm-4 container"></div>
     <script type="text/babel">
       //每一选项的组件 
       var SelectionItem = React.createClass({
         render:function(){
           let styles = {
-          checkItem:{
-          },
-          badge:{
-            "float":"right"
+            wrap:{
+              "margin":"10px 0 10px 0",
+              "color":"#bbb"
+            },
+            checkBox:{
+              "marginLeft":"15%",
+              "marginRight":"3%"
+            },
+            badge:{
+              "float":"right",
+              "marginRight":"8%"
+            }
           }
-        }
         return (
-          <div>
-            <input type="checkbox" style={styles.checkTitle}/> {this.props.content}
-            <span className="badge" style={styles.badge}>4</span>
+          <div style={styles.wrap}>
+            <input type="checkbox" style={styles.checkBox}/> {this.props.content}
+            <span style={styles.badge}>4</span>
           </div>
         )
         }
@@ -34,17 +41,23 @@
       var SelectionTitle = React.createClass({
         render:function(){
           let styles={
-            checkTitle:{
-              "paddingRight":"15px"
+            wrap:{
+              "color":"#fff",
+              "margin":"20px 0 0 8%"
+
+            },
+            checkBox:{
+              "marginRight":"3%"
             },
             badge:{
-              "float":"right"
+              "float":"right",
+              "marginRight":"6%"
             }
           }
 
           return(
-            <div>
-              <input type="checkbox" style={styles.checkTitle}/> {this.props.content}
+            <div style={styles.wrap}>
+              <input type="checkbox" style={styles.checkBox}/> {this.props.content}
               <span className="badge" style={styles.badge}>120</span>
             </div>
           );
@@ -55,14 +68,26 @@
       var Title = React.createClass({
         render:function(){
           let styles={
+            wrap:{
+              "padding":"40px 0 0 0",
+            },
+            title:{
+              "color":"#bbb",
+              "fontSize":"20px",
+              "marginLeft":"8%"
+            },
             button:{
-              "marginRight":"80%"
+              "float":"right",
+              "border":"none",
+              "color":"#fff",
+              "background":"none",
+              "marginRight":"5%"
             }
           }
           return (
-            <div>
-              <span>招聘职位</span>
-              <button className="btn">清空</button>
+            <div style={styles.wrap}>
+              <span style={styles.title}>招聘职位</span>
+              <button style={styles.button}>清空</button>
             </div>
           )
         }
@@ -72,17 +97,22 @@
         render:function(){
           let styles = {
             wrap:{
-              "background":"#3F606D",
+              "background":"#527786",
             }
           }
           return (
             <div style={styles.wrap}>
               <Title />
               <SelectionTitle content="工程研发部门" />
-              <SelectionItem content="Mac 开发工程师" />
-              <SelectionItem content="Mac 开发工程师" />
-              <SelectionItem content="Mac 开发工程师" />
-              <SelectionItem content="Mac 开发工程师" />
+                <SelectionItem content="Mac 开发工程师" />
+                <SelectionItem content="Mac 开发工程师" />
+                <SelectionItem content="Mac 开发工程师" />
+                <SelectionItem content="Mac 开发工程师" />
+              <SelectionTitle content="工程研发部门" />
+                <SelectionItem content="Mac 开发工程师" />
+                <SelectionItem content="Mac 开发工程师" />
+                <SelectionItem content="Mac 开发工程师" />
+                <SelectionItem content="Mac 开发工程师" />
             </div>
           );
         }
