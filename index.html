@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mission</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/react.min.js"></script>
+    <script src="./js/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="wrap" class="container col-md-3"></div>
+    <script type="text/babel">
+      //每一选项的组件 
+      var SelectionItem = React.createClass({
+        render:function(){
+          let styles = {
+          checkItem:{
+          },
+          badge:{
+            "float":"right"
+          }
+        }
+        return (
+          <div>
+            <input type="checkbox" style={styles.checkTitle}/> {this.props.content}
+            <span className="badge" style={styles.badge}>4</span>
+          </div>
+        )
+        }
+        
+      });
+      // 选项的标题
+      var SelectionTitle = React.createClass({
+        render:function(){
+          let styles={
+            checkTitle:{
+              "paddingRight":"15px"
+            },
+            badge:{
+              "float":"right"
+            }
+          }
+
+          return(
+            <div>
+              <input type="checkbox" style={styles.checkTitle}/> {this.props.content}
+              <span className="badge" style={styles.badge}>120</span>
+            </div>
+          );
+        },
+
+      });
+      // 内容标题
+      var Title = React.createClass({
+        render:function(){
+          let styles={
+            button:{
+              "marginRight":"80%"
+            }
+          }
+          return (
+            <div>
+              <span>招聘职位</span>
+              <button className="btn">清空</button>
+            </div>
+          )
+        }
+      });
+      // 最外层组件
+      var LeftPanel = React.createClass({
+        render:function(){
+          let styles = {
+            wrap:{
+              "background":"#3F606D",
+            }
+          }
+          return (
+            <div style={styles.wrap}>
+              <Title />
+              <SelectionTitle content="工程研发部门" />
+              <SelectionItem content="Mac 开发工程师" />
+              <SelectionItem content="Mac 开发工程师" />
+              <SelectionItem content="Mac 开发工程师" />
+              <SelectionItem content="Mac 开发工程师" />
+            </div>
+          );
+        }
+      });
+      ReactDOM.render(<LeftPanel />,document.getElementById("wrap"));
+    </script>
+  </body>
+</html>
