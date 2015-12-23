@@ -1,6 +1,6 @@
 # LeftChooseMission
 
-![show gif](https://github.com/Luciahelloworld/LeftChooseMission/raw/master/path/to/chooseMenu.gif)
+![show gif](https://github.com/Luciahelloworld/LeftChooseMission/raw/master/chooseMenu.gif)
 展示的方式，将LeftChooseMission的整个文件下载到本机，然后直接打开index.html就可以显示了
 
 完成这个mission用时12个小时。
@@ -13,4 +13,4 @@
 3. 点击单个岗位checkbox:toggle点击的checkbox
 
 
-期末了，这两天有点忙，还有那个计数的功能日后是实现哦!见谅
+期末了，这两天有点忙，还有那个动态计数的功能日后是实现哦!见谅
