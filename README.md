@@ -22,5 +22,5 @@
     对于componentWillReceiveProps:function(props){  
           this.setState({  
             "checked":props.checked (注意这里不是this.props.checked)因为this.props.checked是旧值,而props.checked是新值  
-            })  
+                })  
           }
