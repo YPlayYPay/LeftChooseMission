@@ -13,6 +13,26 @@
     <script type="text/babel">
       //每一选项的组件 
       var SelectionItem = React.createClass({
+        getInitialState:function(){
+          return{
+            "number":this.props.number,
+            "checked":this.props.checked
+          }
+        },
+
+        componentWillReceiveProps:function(){
+          this.setState({
+            "checked":this.props.checked
+          })
+          console.log(this.props.checked);
+        },
+
+        handleChange:function(event){
+          this.setState({
+            "checked":event.target.checked
+          })
+        },
+        
         render:function(){
           let styles = {
             wrap:{
@@ -28,23 +48,41 @@
               "marginRight":"8%"
             }
           }
-        return (
-          <div style={styles.wrap}>
-            <input type="checkbox" style={styles.checkBox}/> {this.props.content}
-            <span style={styles.badge}>4</span>
-          </div>
-        )
+          
+          return (
+            <div style={styles.wrap}>
+              <input type="checkbox" style={styles.checkBox}
+                name={this.props.content} checked={this.state.checked} onChange={this.handleChange}/> {this.props.content}
+              <span style={styles.badge}>{this.state.number}</span>
+            </div>
+          )
         }
         
       });
       // 选项的标题
       var SelectionTitle = React.createClass({
+
+        getInitialState:function(){
+          return{
+            "checked":false
+          }
+        },
+        handleChange:function(event){
+          this.setState({
+            "checked":event.target.checked
+          })
+        },
+
+        componentWillReceiveProps:function(){
+          this.setState({
+            "checked":this.props.checked
+          })
+        },
         render:function(){
           let styles={
             wrap:{
               "color":"#fff",
               "margin":"20px 0 0 8%"
-
             },
             checkBox:{
               "marginRight":"3%"
@@ -54,25 +92,50 @@
               "marginRight":"6%"
             }
           }
+          console.log("props",this.state.checked)
+          var item = this.props.item.map(function(items){
+            
+            return <SelectionItem content={items.item} number={items.number} checked={this.state.checked} />
+          }.bind(this));
 
           return(
-            <div style={styles.wrap}>
-              <input type="checkbox" style={styles.checkBox}/> {this.props.content}
-              <span className="badge" style={styles.badge}>120</span>
+            <div>
+              <div style={styles.wrap}>
+                <input type="checkbox" style={styles.checkBox} onChange={this.handleChange} checked={this.state.checked}/> {this.props.content}
+                <span className="badge" style={styles.badge}>120</span>
+              </div>
+              {item}
             </div>
           );
         },
 
       });
-      // 内容标题
-      var Title = React.createClass({
+    
+
+
+      // 最外层组件
+      var LeftPanel = React.createClass({
+        getInitialState:function(){
+          return{
+            "checked":true
+          }
+        },
+        handleClick:function(){
+          this.setState({
+            "checked":false
+          })
+        },
         render:function(){
-          let styles={
+          {/*使用测色器数据渲染后与图片颜色不一致,这里使用的数据是视觉上一致的数据*/}
+          let styles = {
+            wrapBackground:{
+              "background":"rgb(95,125,140)",
+            },
             wrap:{
               "padding":"40px 0 0 0",
             },
             title:{
-              "color":"#bbb",
+              "color":"#ddd",
               "fontSize":"20px",
               "marginLeft":"8%"
             },
@@ -84,40 +147,65 @@
               "marginRight":"5%"
             }
           }
-          return (
-            <div style={styles.wrap}>
-              <span style={styles.title}>招聘职位</span>
-              <button style={styles.button}>清空</button>
-            </div>
-          )
-        }
-      });
-      // 最外层组件
-      var LeftPanel = React.createClass({
-        render:function(){
-          let styles = {
-            wrap:{
-              "background":"#527786",
+
+          {/*存放标题*/}
+          var titles = [];
+          {/*类别归类对象*/}
+          var itemsSort = {};
+
+          this.props.content.forEach(function(items){
+            {/*判断对象是否存在*/}
+            if(!itemsSort[items.title]){
+              titles.push(items.title);
+              itemsSort[items.title] = [];
+              itemsSort[items.title].push(items);
+
+            }else{
+              itemsSort[items.title].push(items);
             }
-          }
+
+          });
+
+          var chooseNode = titles.map(function(title){
+            return (
+              <SelectionTitle content={title} item={itemsSort[title]} checked={this.state.checked}/>
+            )
+          }.bind(this));
+          
           return (
-            <div style={styles.wrap}>
-              <Title />
-              <SelectionTitle content="工程研发部门" />
-                <SelectionItem content="Mac 开发工程师" />
-                <SelectionItem content="Mac 开发工程师" />
-                <SelectionItem content="Mac 开发工程师" />
-                <SelectionItem content="Mac 开发工程师" />
-              <SelectionTitle content="工程研发部门" />
-                <SelectionItem content="Mac 开发工程师" />
-                <SelectionItem content="Mac 开发工程师" />
-                <SelectionItem content="Mac 开发工程师" />
-                <SelectionItem content="Mac 开发工程师" />
+            <div id="leftPanel" ref="leftPanel" style={styles.wrapBackground}>
+              <div>
+                <div style={styles.wrap}>
+                  <span style={styles.title}>招聘职位</span>
+                  <button style={styles.button} onClick={this.handleClick}>清空</button>
+                </div>
+                {chooseNode}
+              </div>
             </div>
           );
-        }
+        },
+
+
       });
-      ReactDOM.render(<LeftPanel />,document.getElementById("wrap"));
+
+      
+
+      ReactDOM.render(<LeftPanel content={[{"title":"工程研发部门","item":"Mac 开发工程师","checked":"false",
+                                            "number":9},
+                                          {"title":"工程研发部门","item":"iOS App 测试工程师","checked":"false","number":17},
+                                          {"title":"工程研发部门","item":"Android 远程控制工程师","checked":"false","number":61},
+                                          {"title":"工程研发部门","item":"Web 前端工程师","checked":"false",
+                                            "number":31},
+                                          {"title":"工程研发部门","item":"Android 多媒体软件开发工程师","checked":"false","number":2},
+                                          {"title":"产品设计部门","item":"网页设计师","checked":"false",
+                                            "number":47},
+                                          {"title":"产品设计部门","item":"ID/工业设计师","checked":"false",
+                                            "number":39},
+                                          {"title":"产品设计部门","item":"视觉设计师/GUI界面设计师",
+                                            "checked":"false","number":42},
+                                          {"title":"产品设计部门","item":"平面设计师","checked":"false",
+                                            "number":8}
+                                          ]} />,document.getElementById("wrap"));
     </script>
   </body>
 </html>
