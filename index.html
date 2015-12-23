@@ -19,12 +19,11 @@
             "checked":this.props.checked
           }
         },
-
-        componentWillReceiveProps:function(){
+        /*纠结了半天的问题。这里的this.props是旧式的props的属性，后面的props是新式的props*/
+        componentWillReceiveProps:function(props){
           this.setState({
-            "checked":this.props.checked
+            "checked":props.checked
           })
-          console.log(this.props.checked);
         },
 
         handleChange:function(event){
@@ -73,9 +72,9 @@
           })
         },
 
-        componentWillReceiveProps:function(){
+        componentWillReceiveProps:function(props){
           this.setState({
-            "checked":this.props.checked
+            "checked":props.checked
           })
         },
         render:function(){
@@ -92,7 +91,6 @@
               "marginRight":"6%"
             }
           }
-          console.log("props",this.state.checked)
           var item = this.props.item.map(function(items){
             
             return <SelectionItem content={items.item} number={items.number} checked={this.state.checked} />
