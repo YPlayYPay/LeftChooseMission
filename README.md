@@ -17,12 +17,10 @@
 期末了，这两天有点忙，还有那个动态计数的功能日后是实现哦!见谅  
 
 收获:  
-1.react根据json的格式动态的生成DOM元素,文章发表在了
+1.react根据json的格式动态的生成DOM元素,文章发表在了https://segmentfault.com/a/1190000004189415
 2.componetWillReceiveProps的用法  
     对于componentWillReceiveProps:function(props){  
-        this.setState({  
-            "checked":props.checked (注意这里不是this.props.checked)因为this.props.checked是旧值,而props.checked是新值  
-            
-        })  
-        
-      }
+          this.setState({  
+            "checked":props.checked (注意这里不是this.props.checked)因为this.props.checked是旧值,而props.checked是新值
+          })
+        }
