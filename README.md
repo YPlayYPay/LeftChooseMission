@@ -15,6 +15,7 @@
 
 
 期末了，这两天有点忙，还有那个动态计数的功能日后是实现哦!见谅  
+动态计数在browserifyDemo中已经实现了
 
 收获:  
 1.react根据json的格式动态的生成DOM元素,文章发表在了https://segmentfault.com/a/1190000004189415
